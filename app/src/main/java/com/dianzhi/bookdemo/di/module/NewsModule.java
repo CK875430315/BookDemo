@@ -19,11 +19,9 @@ public class NewsModule {
 //    }
 //
     private NewsContract.View view;
-    private String ck;
 
     public NewsModule(NewsContract.View view) {
         this.view = view;
-        String a="";
     }
 
     @Provides
