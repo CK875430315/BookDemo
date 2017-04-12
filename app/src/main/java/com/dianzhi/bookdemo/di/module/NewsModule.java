@@ -12,12 +12,6 @@ import dagger.Provides;
 @Module
 public class NewsModule {
 
-
-    //    @Provides
-//    NewsContract.Model provideNewsModelImpl(NewsModelImpl model) {
-//        return model;
-//    }
-//
     private NewsContract.View view;
 
     public NewsModule(NewsContract.View view) {

@@ -13,6 +13,7 @@ public class NewsContract {
     public static CompositeSubscription mCompositeSubscription;
 
     public interface View extends BaseView {
+        //获取新闻需要展示的数据
         void showTitle(String title);
 
         void showImage(String picUrl);

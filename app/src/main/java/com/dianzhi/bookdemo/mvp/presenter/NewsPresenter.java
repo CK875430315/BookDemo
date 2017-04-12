@@ -45,7 +45,7 @@ public class NewsPresenter implements NewsContract.Presenter{
         map.put("category","all");
         map.put("limit","3");
         map.put("ad","1");
-        Subscription subscription = Network.get(RequestObservable.getApi().getNewsData(map), new CallBackListener<NewsEntity>() {
+        Subscription subscription = Network.send(RequestObservable.getApi().getNewsData(map), new CallBackListener<NewsEntity>() {
             @Override
             public void onSuccess(NewsEntity newsEntity) {
                 view.showImage(newsEntity.result.get(0).getImages().get(0));

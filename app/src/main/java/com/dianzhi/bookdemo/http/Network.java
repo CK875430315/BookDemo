@@ -17,7 +17,7 @@ public class Network {
      * @param observable
      * @param backListener
      */
-    public static Subscription get(Observable observable, CallBackListener backListener) {
+    public static Subscription send(Observable observable, CallBackListener backListener) {
         return observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getObserve(backListener));
@@ -36,6 +36,7 @@ public class Network {
             }
             @Override
             public void onError(Throwable e) {
+                e.printStackTrace();
                 if (backListener != null) {
                     backListener.onError(e.getMessage());
                     backListener.onFinish();

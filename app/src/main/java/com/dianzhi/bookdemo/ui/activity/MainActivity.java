@@ -1,5 +1,6 @@
 package com.dianzhi.bookdemo.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dianzhi.bookdemo.R;
-import com.dianzhi.bookdemo.base.BaseActivity;
 import com.dianzhi.bookdemo.di.component.DaggerNewsCompoent;
 import com.dianzhi.bookdemo.di.module.NewsModule;
 import com.dianzhi.bookdemo.mvp.contract.NewsContract;
@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements NewsContract.View{
+public class MainActivity extends FloatNormalActivity implements NewsContract.View{
     @Inject
     NewsPresenter newsPresenter;//dagger2注解获取newspresenter的对象，以至于怎么获取，看与当前MainActivity想关联的NewsModule
     @BindView(R.id.title)
@@ -29,8 +29,9 @@ public class MainActivity extends BaseActivity implements NewsContract.View{
     ImageView iv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        needImmersive=false;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main,true);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setInjectotor();
     }
@@ -38,6 +39,12 @@ public class MainActivity extends BaseActivity implements NewsContract.View{
     @OnClick(R.id.btn)
     public void get(View view) {
         newsPresenter.refreshData();
+    }
+
+    @OnClick(R.id.btn_location)
+    public void btn_location(View view) {
+        Intent intent=new Intent(this,ListViewSection.class);
+        startActivity(intent);
     }
     private void setInjectotor() {
         //固定写法表示要注入的是当前的MainActivity,与NewsModule相关联

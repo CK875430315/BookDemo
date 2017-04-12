@@ -4,8 +4,10 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_white"
     android:orientation="vertical"
-    tools:context="com.dianzhi.bookdemo.ui.activity.MainActivity">
+>
+    <include layout="@layout/app_head"></include>
 <Button
     android:layout_width="match_parent"
     android:text="Get"
@@ -20,4 +22,9 @@
         android:layout_width="match_parent"
         android:id="@+id/iv"
         android:layout_height="150dp" />
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/btn_location"
+        android:text="go location activity"
+        android:layout_height="wrap_content" />
 </LinearLayout>
