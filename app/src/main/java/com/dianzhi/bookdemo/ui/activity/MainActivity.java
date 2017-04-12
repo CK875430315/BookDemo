@@ -1,7 +1,5 @@
 package com.dianzhi.bookdemo.ui.activity;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +10,7 @@ import com.dianzhi.bookdemo.di.component.DaggerNewsCompoent;
 import com.dianzhi.bookdemo.di.module.NewsModule;
 import com.dianzhi.bookdemo.mvp.contract.NewsContract;
 import com.dianzhi.bookdemo.mvp.presenter.NewsPresenter;
-import com.squareup.picasso.Picasso;
+import com.dianzhi.bookdemo.utils.UiUtils;
 
 import javax.inject.Inject;
 
@@ -43,8 +41,7 @@ public class MainActivity extends FloatNormalActivity implements NewsContract.Vi
 
     @OnClick(R.id.btn_location)
     public void btn_location(View view) {
-        Intent intent=new Intent(this,ListViewSection.class);
-        startActivity(intent);
+      ListViewSection.startActivity(this);
     }
     private void setInjectotor() {
         //固定写法表示要注入的是当前的MainActivity,与NewsModule相关联
@@ -58,10 +55,7 @@ public class MainActivity extends FloatNormalActivity implements NewsContract.Vi
 
     @Override
     public void showImage(String picUrl) {
-        Picasso.with(this)
-                .load(picUrl)
-                .config(Bitmap.Config.RGB_565)
-                .into(iv);
+        UiUtils.loadDetailImage(this,iv,picUrl);
     }
 
     @Override
