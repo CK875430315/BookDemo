@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">天天直播</string>
+    <string name="app_name">APP</string>
 
     <!--LRecycleView String-->
     <string name="listview_header_hint_normal">下拉刷新</string>
@@ -27,4 +27,5 @@
     <string name="tv">电视剧</string>
     <string name="movie">电影</string>
     <string name="variety">综艺</string>
+    <string name="deniedNeverAsk">权限未通过，请到设置中心手动开启</string>
 </resources>

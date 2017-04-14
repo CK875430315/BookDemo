@@ -1,12 +1,18 @@
 package com.dianzhi.bookdemo.base;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.dianzhi.bookdemo.utils.ConfigUtils;
+import com.dianzhi.bookdemo.utils.Core;
+import com.dianzhi.bookdemo.utils.Permission;
+import com.dianzhi.bookdemo.utils.SpUtils;
 
 import butterknife.ButterKnife;
 
@@ -15,74 +21,54 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseFragment extends Fragment {
     public static final String TAG = "sssss";
-    public Context mContext;
     private boolean isVisiable;
     private boolean isViewInit;
     private boolean isDataFinish;
-
-
+    protected String appid= ConfigUtils.APPID;
+    protected String imei="";
+    protected String pt = ConfigUtils.PT;
+    protected String ver="";
+    public Context mContext;
+    private boolean isFirsrt=true;
+    protected String uid="0";
+    public  Permission.Builder permission;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+        permission= new Permission.Builder();
     }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view  = inflater.inflate(getLayoutId(), container, false);
-        ButterKnife.bind(this, view);
-        initView(view);
-        return view;
-
-    }
-
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //view inited
-        isViewInit = true;
-        initData();
-        prepareFetchData();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        initInfo();
+        return inflater.inflate(getLayoutId(), container, false);
     }
-
-    /**
-     * 这个方法的传值直接影响fetchData会不会执行
-     *
-     * @param isVisibleToUser
-     */
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        this.isVisiable = isVisibleToUser;
-        prepareFetchData();
+    public void onResume() {
+        super.onResume();
+        uid = SpUtils.getSP(mContext,"uid");
     }
 
-    private void prepareFetchData() {
-        prepareFetchData(false);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this,view);
     }
 
-    /**
-     * 刷新数据
-     *
-     * @param isNeedRefresh
-     */
-    private void prepareFetchData(boolean isNeedRefresh) {
-        if (isVisiable && isViewInit && (!isDataFinish || isNeedRefresh)) {
-            fetchData();
-            isDataFinish = true;
+    private void initInfo() {
+         uid = SpUtils.getSP(mContext,"uid");
+        if(isFirsrt){
+            isFirsrt=false;
+            Core core = new Core(mContext);
+            imei = core.getIMEI();
+            try {
+                ver = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0).versionName;
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
         }
-
     }
-
-    public abstract void fetchData();
-
     protected abstract int getLayoutId();
-
-    protected abstract void initView(View view);
-
-    protected void initData() {
-
-    }
 }

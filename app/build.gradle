@@ -51,4 +51,6 @@ dependencies {
     compile 'com.orhanobut:dialogplus:1.11@aar'
    //
     compile 'com.android.support:multidex:1.0.0'
+    //xutils
+    compile 'org.xutils:xutils:3.5.0'
 }

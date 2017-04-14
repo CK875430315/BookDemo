@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public void sendToServe(View view) {
         //发送给服务端
         Message message=Message.obtain();
-        //这里保存一个Messenger 服务端回复需要用到的
+        //这里保存一个Messenger 服务端回复客户端需要用到的
         message.replyTo=messengerClient;
         Bundle bundle=new Bundle();
         bundle.putString("toServe","i am form client");
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    //接收服务端
+    //接收服务端的回复（在发送给服务端之后的操作）
     private Messenger messengerClient=new Messenger(new MessengerClientHandler());
     private class MessengerClientHandler extends Handler{
         @Override

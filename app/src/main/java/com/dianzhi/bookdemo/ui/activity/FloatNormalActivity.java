@@ -1,13 +1,7 @@
 package com.dianzhi.bookdemo.ui.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -15,12 +9,10 @@ import com.dianzhi.bookdemo.R;
 import com.dianzhi.bookdemo.ui.view.immersive.ImmersiveUtil;
 import com.dianzhi.bookdemo.ui.view.immersive.SystemBarCompact;
 import com.dianzhi.bookdemo.utils.ConfigUtils;
-import com.dianzhi.bookdemo.utils.Core;
+import com.dianzhi.bookdemo.utils.Permission;
 import com.dianzhi.bookdemo.utils.SpUtils;
 
 import rx.Subscription;
-
-import static android.os.Build.VERSION_CODES.M;
 
 /**
  * Created by CK on 2017/4/12.
@@ -39,40 +31,25 @@ public class FloatNormalActivity extends AppCompatActivity {
     protected String uid = "";
     protected Subscription subscription;
     private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 11;
+    public Permission.Builder builder;
+
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         /*this.requestWindowFeature(getIntent());*/
         setImmersiveStatus();
-        permissget();
+        uid = SpUtils.getSP(this, "uid");
+        imei = SpUtils.getSP(this, "imei");
+        ver = SpUtils.getSP(this, "ver");
+        builder = new Permission.Builder();
     }
 
-    private void permissget() {
-        if (Build.VERSION.SDK_INT >= M)
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
-            } else {
-                initInfo();
-            }
-        else {
-            initInfo();
-        }
-
-    }
-    private void initInfo() {
-        uid = SpUtils.getSP(this,"uid");
-        Core core = new Core(this);
-        imei = core.getIMEI();
-        try {
-            ver = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (uid.equals("0"))
+            uid = SpUtils.getSP(this, "uid");
         if (systemBarCompact != null) {
             systemBarCompact.init();
         }
@@ -109,19 +86,5 @@ public class FloatNormalActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == MY_PERMISSIONS_REQUEST_READ_PHONE_STATE) {
-            //用户同意使用write
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-                initInfo();
-            } else {
-                //用户不同意，自行处理即可
-                finish();
-            }
-        }
-
-    }
 }

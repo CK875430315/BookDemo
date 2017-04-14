@@ -5,6 +5,8 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 
+import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,7 @@ public class MyApplication extends Application {
         super.onCreate();
         Instandce=this;
         MultiDex.install(this);
+        x.Ext.init(this);
     }
 
 }

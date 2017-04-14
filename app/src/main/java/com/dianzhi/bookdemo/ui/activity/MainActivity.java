@@ -1,66 +1,30 @@
 package com.dianzhi.bookdemo.ui.activity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.support.v4.app.Fragment;
 
 import com.dianzhi.bookdemo.R;
-import com.dianzhi.bookdemo.di.component.DaggerNewsCompoent;
-import com.dianzhi.bookdemo.di.module.NewsModule;
-import com.dianzhi.bookdemo.mvp.contract.NewsContract;
-import com.dianzhi.bookdemo.mvp.presenter.NewsPresenter;
-import com.dianzhi.bookdemo.utils.UiUtils;
+import com.dianzhi.bookdemo.ui.fragment.HomeFragment;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class MainActivity extends FloatNormalActivity implements NewsContract.View{
-    @Inject
-    NewsPresenter newsPresenter;//dagger2注解获取newspresenter的对象，以至于怎么获取，看与当前MainActivity想关联的NewsModule
-    @BindView(R.id.title)
-    TextView tv;
-    @BindView(R.id.iv)
-    ImageView iv;
+
+public class MainActivity extends FloatNormalActivity{
+
+    private List<Fragment> fragments=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         needImmersive=false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setInjectotor();
+        fragments.add(new HomeFragment());
+        getSupportFragmentManager().beginTransaction().add(R.id.fl_content,fragments.get(0),"0")
+                .commit();
     }
 
-    @OnClick(R.id.btn)
-    public void get(View view) {
-        newsPresenter.refreshData();
-    }
 
-    @OnClick(R.id.btn_location)
-    public void btn_location(View view) {
-      ListViewSection.startActivity(this);
-    }
-    private void setInjectotor() {
-        //固定写法表示要注入的是当前的MainActivity,与NewsModule相关联
-        DaggerNewsCompoent.builder().newsModule(new NewsModule(this)).build().inject(this);
-    }
-
-    @Override
-    public void showTitle(String title) {
-        tv.setText(title);
-    }
-
-    @Override
-    public void showImage(String picUrl) {
-        UiUtils.loadDetailImage(this,iv,picUrl);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        newsPresenter.unsubscribe();
-    }
 }
