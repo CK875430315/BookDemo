@@ -4,13 +4,28 @@ apply plugin: 'android-apt'
 android {
     compileSdkVersion 24
     buildToolsVersion "25.0.0"
+    //**兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下使用compile 'cn.bmob.android:http-legacy:1.0'**
+    useLibrary 'org.apache.http.legacy'
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
     defaultConfig {
-        applicationId "com.dianzhi.bookdemo"
+        applicationId "com.dianzhi.yxt"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -18,13 +33,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    signingConfigs {
+        debug{
+            storeFile file("D:\\asworkplace\\BookDemo\\app\\android.keystore");
+            storePassword "android";
+            keyAlias "android.keystore";
+            keyPassword "android";
+        }
+//        release{
+//            storeFile file("D:\\asworkplace\\XianZhuan\\app\\android.keystore");
+//            storePassword "android";
+//            keyAlias "android.keystore";
+//            keyPassword "android";
+//        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
@@ -49,8 +80,19 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     //底部dialog
     compile 'com.orhanobut:dialogplus:1.11@aar'
-   //
+    //
     compile 'com.android.support:multidex:1.0.0'
     //xutils
     compile 'org.xutils:xutils:3.5.0'
+    //3.5.0：请务必查看下面注释[1]
+    //    compile 'cn.bmob.android:bmob-sdk:3.5.0'
+    //    compile 'cn.bmob.android:http-legacy:1.0'
+    compile 'com.jude:rollviewpager:1.4.5'
+    //MTA 统计
+    compile files('libs/mid-core-sdk-3.7.1.jar')
+    compile files('libs/mta-android-stat-sdk-2.3.0_20161221-jdk1.6.jar')
+    //友盟
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    //美恰
+    compile 'com.meiqia:meiqiasdk:3.4.0@aar'
 }

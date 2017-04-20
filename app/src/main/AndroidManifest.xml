@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dianzhi.bookdemo">
+    package="com.dianzhi.yxt">
+
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -16,42 +18,116 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name = "android.permission.RECEIVE_SMS" />
-    <uses-permission android:name = "android.permission.SEND_SMS" />
-    <uses-permission android:name = "android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+
     <application
+        android:name="com.dianzhi.yxt.base.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:name="com.dianzhi.bookdemo.base.MyApplication"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Default">
-        <activity android:name=".ui.activity.WelcomeActivity"
-            android:theme="@style/DefaultMain"
+
+        <provider
+            android:name="com.tencent.mid.api.MidProvider"
+            android:authorities="com.dianzhi.yxt.TENCENT.MID.V3"
+            android:exported="true" >
+        </provider>
+        <meta-data android:name="TA_APPKEY" android:value="A9DVZ1Z8XF6G" />
+        <meta-data android:name="InstallChannel" android:value="YOUR_CHANNEL" />
+
+        <meta-data android:value="58f6db1a04e2050e2300021b" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
+        <!--聊天界面-->
+        <activity
+            android:name="com.meiqia.meiqiasdk.activity.MQConversationActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-         >
+            android:theme="@style/MQTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <!--图片查看界面-->
+        <activity
+            android:name="com.meiqia.meiqiasdk.activity.MQPhotoPreviewActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/MQTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <!--图片选择界面-->
+        <activity
+            android:name="com.meiqia.meiqiasdk.activity.MQPhotoPickerActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/MQTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <!--图片选择预览界面-->
+        <activity
+            android:name="com.meiqia.meiqiasdk.activity.MQPhotoPickerPreviewActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/MQTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <!--WebView 界面-->
+        <!--<activity-->
+            <!--android:name=".activity.MQWebViewActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation"-->
+            <!--android:launchMode="singleTop"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/MQTheme"-->
+            <!--android:windowSoftInputMode="stateHidden|adjustResize" />-->
+        <!--询前表单-->
+        <!--<activity-->
+            <!--android:name=".activity.MQInquiryFormActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation"-->
+            <!--android:launchMode="singleTop"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/MQTheme"-->
+            <!--android:windowSoftInputMode="stateHidden|adjustResize" />-->
+
+        <!--<activity-->
+            <!--android:name=".activity.MQCollectInfoActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation"-->
+            <!--android:launchMode="singleTop"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/MQTheme"-->
+            <!--android:windowSoftInputMode="stateHidden|adjustResize" />-->
+
+        <service android:name="com.meiqia.core.MeiQiaService" />
+        <activity
+            android:name="com.dianzhi.yxt.ui.activity.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DefaultMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MainActivity"
-            android:theme="@style/DefaultMain"
+        <activity
+            android:name="com.dianzhi.yxt.ui.activity.MainActivity"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".ui.activity.ListViewSection"></activity>
+            android:theme="@style/DefaultMain" />
+        <activity android:name="com.dianzhi.yxt.ui.activity.ListViewSection"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.dianzhi.yxt.ui.activity.BleActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.dianzhi.yxt.ui.activity.SearchActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

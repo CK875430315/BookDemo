@@ -1,1 +1,1 @@
-include ':app', ':launchomode', ':tinkerdemo', ':messengerserve', ':messengerclient', ':stickylayout'
+include ':app', ':launchomode', ':tinkerdemo', ':messengerserve', ':messengerclient'

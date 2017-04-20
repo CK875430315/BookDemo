@@ -11,5 +11,5 @@
         <attr name="borderRadius" format="integer"></attr>
         <attr name="type" format="integer"></attr>
     </declare-styleable>
-    <!--<attr name="vpiTabPageIndicatorStyle" format="reference"/>-->
+    <attr name="vpiTabPageIndicatorStyle" format="reference"/>
 </resources>

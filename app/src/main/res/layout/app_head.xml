@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:theme="@style/AppTheme.AppBarOverlay">
-    <com.dianzhi.bookdemo.ui.view.immersive.ImmersiveTitleBar
+    <com.dianzhi.yxt.ui.view.immersive.ImmersiveTitleBar
         android:id="@+id/ttb"
         android:layout_width="wrap_content"
         android:layout_height="0dp" />
@@ -13,7 +13,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/color_00a5eb"
+        android:background="@color/color_main_tab"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <ImageView

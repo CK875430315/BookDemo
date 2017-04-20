@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/color_white"
+    android:layout_height="match_parent">
+    <com.jude.rollviewpager.RollPagerView
+        android:id="@+id/vp_roll"
+        android:background="@color/color_00a5eb"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_150"
+        app:rollviewpager_play_delay="3000" />
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/color_ededed"
+        android:layout_height="@dimen/dimen_6"></View>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_90">
+
+</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/color_ededed"
+        android:layout_height="@dimen/dimen_6"></View>
+    <RelativeLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_45">
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_height="match_parent"></View>
+
+        <com.dianzhi.yxt.ui.view.HorizontalListView
+            android:background="@color/color_f4858c"
+            android:id="@+id/header_top_tab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_45"/>
+    </RelativeLayout>
+
+</LinearLayout>

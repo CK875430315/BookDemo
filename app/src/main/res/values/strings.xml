@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">APP</string>
+    <string name="app_name">游戏推</string>
 
     <!--LRecycleView String-->
     <string name="listview_header_hint_normal">下拉刷新</string>

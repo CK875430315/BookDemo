@@ -6,7 +6,7 @@
     <color name="color_00a5eb">#FD8428</color>
     <color name="window_bg">#ffffff</color>
     <color name="color_00">#000000</color>
-    <color name="color_main_tab">#FD8428</color>
+    <color name="color_main_tab">#01A9F2</color>
     <color name="color_white">#ffffff</color>
     <color name="color_bfbfbf">#BFBFBF</color>
     <color name="color_f4858c">#F4858C</color>
@@ -24,4 +24,6 @@
     <color name="color_f3f3f3">#f3f3f3</color>
     <color name="color_90000">#90000000</color>
     <color name="color_8e8e8e">#8e8e8e</color>
+    <color name="color_7a7a7a">#7a7a7a</color>
+    <color name="color_ededed">#ededed</color>
 </resources>
